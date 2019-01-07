@@ -26,6 +26,17 @@ module.exports = class GoogleMapsAPI extends APIWrapper {
     }
   }
 
+  /**
+   * Search a city location
+   * @param {String} lat Latitude
+   * @param {String} lng Longitude
+   * @returns {Promise<?Object>} Timezone information from Google
+   */
+  async getTimezone (lat, lng) {
+    const { results: [ result ] } = await this.request('/timezone', { location: `${lat},${lng}` })
+    return result
+  }
+
   // Default
   request (endpoint, queryParams = {}) {
     queryParams.key = process.env.GMAPS_KEY
